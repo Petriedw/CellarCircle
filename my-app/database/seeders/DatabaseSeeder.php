@@ -14,6 +14,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $headAdminEmail = env('HEAD_ADMIN_EMAIL', app()->environment('local') ? 'admin@cellarcircle.test' : null);
+        $headAdminPassword = env('HEAD_ADMIN_PASSWORD', app()->environment('local') ? 'password' : null);
+
+        if ($headAdminEmail && $headAdminPassword) {
+            User::updateOrCreate(
+                ['email' => $headAdminEmail],
+                [
+                    'name' => 'Cellar Circle Head Admin',
+                    'role' => 'head_admin',
+                    'password' => Hash::make($headAdminPassword),
+                ],
+            );
+        }
+
+        if (! app()->environment('local')) {
+            return;
+        }
+
         User::updateOrCreate(
             ['email' => 'admin@cellarcircle.test'],
             [
