@@ -1,0 +1,91 @@
+@import url('https://fonts.bunny.net/css?family=figtree:400,500,600,700|instrument-serif:400,400i');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+    }
+
+    .font-serif {
+        font-family: 'Instrument Serif', Georgia, serif;
+    }
+}
+
+@layer utilities {
+    .animate-rise {
+        animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .animate-rise-delayed {
+        animation: rise 1050ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .animate-float-slow {
+        animation: float-slow 11s ease-in-out infinite;
+    }
+
+    .animate-float-reverse {
+        animation: float-reverse 14s ease-in-out infinite;
+    }
+
+    .marquee {
+        animation: marquee 28s linear infinite;
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes float-slow {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(18px, -18px, 0) rotate(4deg);
+    }
+}
+
+@keyframes float-reverse {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(-22px, 18px, 0) rotate(-5deg);
+    }
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
