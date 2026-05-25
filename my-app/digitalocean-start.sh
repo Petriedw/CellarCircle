@@ -16,16 +16,13 @@ php artisan config:clear || true
 php artisan route:clear || true
 php artisan view:clear || true
 
+echo "Preparing database and public storage..."
+php artisan migrate --force --no-interaction
+php artisan storage:link --force || true
+
 php artisan config:cache || true
 php artisan route:cache || true
 php artisan view:cache || true
-
-echo "Starting background migration task..."
-(
-    sleep 10
-    echo "Running migrations in background..."
-    timeout 60 php artisan migrate --force --no-interaction || echo "Migration failed or timed out; app still started."
-) &
 
 echo "Starting Apache..."
 exec apache2-foreground

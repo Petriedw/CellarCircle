@@ -32,6 +32,8 @@ class JournalController extends Controller
     {
         abort_unless($post->status === 'approved', 404);
 
+        $post->load('author:id,name');
+
         return Inertia::render('Journal/Show', [
             'post' => [
                 'title' => $post->title,

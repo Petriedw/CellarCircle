@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\AccessRequest;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AdminManagementTest extends TestCase
@@ -55,6 +56,26 @@ class AdminManagementTest extends TestCase
             'email' => 'writer@example.com',
             'role' => 'editor',
         ]);
+        $this->assertTrue(Hash::check('password123', User::where('email', 'writer@example.com')->value('password')));
+    }
+
+    public function test_admin_can_add_a_person_with_a_temporary_password(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $response = $this->actingAs($admin)->post(route('admin.users.store'), [
+            'name' => 'New Editor',
+            'email' => 'new-editor@example.com',
+            'role' => 'editor',
+            'password' => 'password123',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertDatabaseHas(User::class, [
+            'email' => 'new-editor@example.com',
+            'role' => 'editor',
+        ]);
+        $this->assertTrue(Hash::check('password123', User::where('email', 'new-editor@example.com')->value('password')));
     }
 
     public function test_admin_can_remove_editors_but_not_head_admins(): void

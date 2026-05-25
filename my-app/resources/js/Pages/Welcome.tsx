@@ -1,6 +1,7 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import { FormEvent } from 'react';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 
 type Article = {
     slug: string;
@@ -86,9 +87,7 @@ export default function Welcome({ auth, posts = [] }: PageProps<{ posts: PublicP
 
                 <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-7 lg:px-10">
                     <a href="#" className="group flex items-center gap-3" aria-label="Cellar Circle Journal home">
-                        <span className="grid h-11 w-11 place-items-center rounded-full border border-[#201713]/15 bg-white/50 shadow-[0_12px_40px_rgba(32,23,19,0.08)] backdrop-blur">
-                            <span className="h-4 w-4 rounded-full bg-[#682738] shadow-[0_0_0_7px_rgba(104,39,56,0.10)] transition-transform duration-500 group-hover:scale-110" />
-                        </span>
+                        <ApplicationLogo className="h-14 w-14 rounded-full object-cover shadow-[0_12px_40px_rgba(32,23,19,0.14)] transition-transform duration-500 group-hover:scale-105" />
                         <span>
                             <span className="block font-serif text-xl tracking-tight">Cellar Circle</span>
                             <span className="block text-[0.62rem] uppercase tracking-[0.34em] text-[#77685e]">Journal</span>

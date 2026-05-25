@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AccessRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -41,7 +42,7 @@ class AccessRequestController extends Controller
                 'name' => $accessRequest->name,
                 'email' => $accessRequest->email,
                 'role' => $data['role'] ?? 'editor',
-                'password' => $data['password'],
+                'password' => Hash::make($data['password']),
             ]);
         }
 

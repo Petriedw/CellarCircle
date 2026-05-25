@@ -3,18 +3,14 @@
 use App\Http\Controllers\Admin\AccessRequestController as AdminAccessRequestController;
 use App\Http\Controllers\Admin\PostApprovalController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Editor\PostController as EditorPostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Public\AccessRequestController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\JournalController;
 use App\Http\Controllers\Public\SubscriberController;
-use App\Models\AccessRequest;
-use App\Models\Post;
-use App\Models\Subscriber;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,17 +29,7 @@ Route::post('/subscribers', [SubscriberController::class, 'store'])->name('subsc
 Route::get('/journal', [JournalController::class, 'index'])->name('journal.index');
 Route::get('/journal/{post}', [JournalController::class, 'show'])->name('journal.show');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', [
-        'stats' => [
-            'approvedPosts' => Post::where('status', 'approved')->count(),
-            'pendingPosts' => Post::where('status', 'pending')->count(),
-            'accessRequests' => AccessRequest::where('status', 'pending')->count(),
-            'subscribers' => Subscriber::count(),
-            'users' => User::count(),
-        ],
-    ]);
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', DashboardController::class)->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
