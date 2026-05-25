@@ -6,12 +6,8 @@ export default function Guest({ children }: PropsWithChildren) {
     return (
         <main className="flex min-h-screen bg-[#f8f4ec] text-[#201713]">
             <section className="hidden min-h-screen w-[44%] border-r border-[#201713]/10 bg-[#201713] px-10 py-12 text-[#fff8ec] lg:flex lg:flex-col lg:justify-between">
-                <Link href="/" className="flex items-center gap-4" aria-label="Cellar Circle Journal home">
-                    <ApplicationLogo className="h-20 w-20 rounded-full object-cover shadow-[0_20px_60px_rgba(0,0,0,0.25)]" />
-                    <span>
-                        <span className="block font-serif text-3xl leading-none">Cellar Circle</span>
-                        <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.34em] text-[#d8bf8f]">Journal</span>
-                    </span>
+                <Link href="/" className="inline-flex" aria-label="Cellar Circle Journal home">
+                    <ApplicationLogo className="h-32 w-auto shadow-[0_20px_60px_rgba(0,0,0,0.25)]" />
                 </Link>
 
                 <div className="max-w-xl">
@@ -27,9 +23,8 @@ export default function Guest({ children }: PropsWithChildren) {
 
             <section className="flex min-h-screen flex-1 flex-col px-6 py-8 sm:px-10">
                 <div className="flex items-center justify-between lg:justify-end">
-                    <Link href="/" className="flex items-center gap-3 lg:hidden" aria-label="Cellar Circle Journal home">
-                        <ApplicationLogo className="h-14 w-14 rounded-full object-cover shadow-sm" />
-                        <span className="font-serif text-2xl">Cellar Circle</span>
+                    <Link href="/" className="inline-flex lg:hidden" aria-label="Cellar Circle Journal home">
+                        <ApplicationLogo className="h-14 w-auto shadow-sm" />
                     </Link>
                     <Link href="/" className="text-sm text-[#682738] transition hover:text-[#201713]">
                         Journal

@@ -19,9 +19,8 @@ export default function Show({ post }: { post: Post }) {
             <main className="min-h-screen bg-[#f8f4ec] text-[#201713]">
                 <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-8">
                     <Link href={route('journal.index')} className="text-sm text-[#682738]">← Journal</Link>
-                    <Link href="/" className="flex items-center gap-3 font-serif text-2xl">
-                        <ApplicationLogo className="h-14 w-14 rounded-full object-cover shadow-sm" />
-                        <span>Cellar Circle</span>
+                    <Link href="/" className="inline-flex">
+                        <ApplicationLogo className="h-14 w-auto shadow-sm" />
                     </Link>
                 </header>
                 <article className="mx-auto max-w-5xl px-6 pb-24">
