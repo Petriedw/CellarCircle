@@ -109,8 +109,12 @@ export default function Welcome({ auth, posts = [] }: PageProps<{ posts: PublicP
                 </div>
 
                 <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-7 lg:px-10">
-                    <a href="#" className="group inline-flex" aria-label="Cellar Circle Journal home">
-                        <ApplicationLogo className="h-16 w-auto shadow-[0_12px_40px_rgba(32,23,19,0.14)] transition-transform duration-500 group-hover:scale-105" />
+                    <a href="#" className="group flex items-center gap-3" aria-label="Cellar Circle Journal home">
+                        <ApplicationLogo className="h-14 w-14 rounded-full object-cover shadow-[0_12px_40px_rgba(32,23,19,0.14)] transition-transform duration-500 group-hover:scale-105" />
+                        <span>
+                            <span className="block font-serif text-xl tracking-tight">Cellar Circle</span>
+                            <span className="block text-[0.62rem] uppercase tracking-[0.34em] text-[#77685e]">Journal</span>
+                        </span>
                     </a>
 
                     <nav className="hidden items-center gap-8 rounded-full border border-[#201713]/10 bg-white/45 px-6 py-3 text-sm text-[#5e514a] shadow-[0_18px_60px_rgba(32,23,19,0.07)] backdrop-blur-xl md:flex">

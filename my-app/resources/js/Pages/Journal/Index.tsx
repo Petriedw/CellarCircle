@@ -24,8 +24,9 @@ export default function Index({ posts }: Props) {
             <Head title="Journal" />
             <main className="min-h-screen bg-[#f8f4ec] text-[#201713]">
                 <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-8 lg:px-10">
-                    <Link href="/" className="inline-flex">
-                        <ApplicationLogo className="h-16 w-auto shadow-sm" />
+                    <Link href="/" className="flex items-center gap-3 font-serif text-2xl">
+                        <ApplicationLogo className="h-14 w-14 rounded-full object-cover shadow-sm" />
+                        <span>Cellar Circle</span>
                     </Link>
                     <Link href={route('login')} className="text-sm text-[#682738]">Login</Link>
                 </header>
