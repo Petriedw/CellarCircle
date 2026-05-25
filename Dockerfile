@@ -46,6 +46,10 @@ RUN npm ci
 
 COPY my-app/ ./
 
+# The Node/Vite/TypeScript build needs Ziggy from Composer's vendor folder.
+# The Laravel vendor folder is created in the PHP composer stage, not in this Node stage.
+COPY --from=vendor /app/vendor/tightenco/ziggy ./vendor/tightenco/ziggy
+
 RUN npm run build
 
 
