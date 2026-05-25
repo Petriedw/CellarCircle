@@ -37,7 +37,24 @@
     }
 
     .marquee {
-        animation: marquee 28s linear infinite;
+        display: flex;
+        width: max-content;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        will-change: transform;
+        animation: marquee 120s linear infinite;
+    }
+
+    .marquee-track {
+        display: flex;
+        flex: 0 0 auto;
+        min-width: max-content;
+    }
+
+    .marquee-item {
+        display: inline-flex;
+        padding-inline: clamp(1.5rem, 3vw, 3.5rem);
+        letter-spacing: 0;
     }
 }
 
@@ -72,10 +89,10 @@
 
 @keyframes marquee {
     from {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
     }
     to {
-        transform: translateX(-50%);
+        transform: translate3d(-25%, 0, 0);
     }
 }
 

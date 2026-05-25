@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -70,6 +69,19 @@ class PostController extends Controller
         $post->update($data);
 
         return redirect()->route('editor.posts.index')->with('status', 'Blog updated and returned to pending approval.');
+    }
+
+    public function storeImage(Request $request)
+    {
+        $data = $request->validate([
+            'image' => ['required', 'image', 'max:4096'],
+        ]);
+
+        $path = $data['image']->store('posts/inline', 'public');
+
+        return response()->json([
+            'url' => "/storage/{$path}",
+        ]);
     }
 
     private function validated(Request $request): array

@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'editor'])->prefix('editor')->name('editor.')->group(function () {
+    Route::post('posts/images', [EditorPostController::class, 'storeImage'])->name('posts.images.store');
     Route::resource('posts', EditorPostController::class)->except(['show', 'destroy']);
 });
 

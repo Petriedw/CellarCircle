@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import MarkdownPreview from '@/Components/MarkdownPreview';
 
 type Post = {
     title: string;
@@ -29,9 +30,7 @@ export default function Show({ post }: { post: Post }) {
                     <p className="mt-6 max-w-3xl text-xl leading-9 text-[#65584f]">{post.excerpt}</p>
                     <p className="mt-6 text-sm text-[#8b735d]">By {post.author?.name ?? 'Cellar Circle'}{post.approved_at ? ` · ${post.approved_at}` : ''}</p>
                     {post.hero_image_url && <img className="mt-10 h-[28rem] w-full rounded-lg object-cover shadow-sm" src={post.hero_image_url} alt="" />}
-                    <div className="prose prose-stone mt-12 max-w-none whitespace-pre-line text-lg leading-9">
-                        {post.body}
-                    </div>
+                    <MarkdownPreview body={post.body} className="mt-12 text-lg" />
                 </article>
             </main>
         </>

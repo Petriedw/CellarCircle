@@ -4,16 +4,44 @@ import { PropsWithChildren } from 'react';
 
 export default function Guest({ children }: PropsWithChildren) {
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
+        <main className="flex min-h-screen bg-[#f8f4ec] text-[#201713]">
+            <section className="hidden min-h-screen w-[44%] border-r border-[#201713]/10 bg-[#201713] px-10 py-12 text-[#fff8ec] lg:flex lg:flex-col lg:justify-between">
+                <Link href="/" className="flex items-center gap-4" aria-label="Cellar Circle Journal home">
+                    <ApplicationLogo className="h-20 w-20 rounded-full object-cover shadow-[0_20px_60px_rgba(0,0,0,0.25)]" />
+                    <span>
+                        <span className="block font-serif text-3xl leading-none">Cellar Circle</span>
+                        <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.34em] text-[#d8bf8f]">Journal</span>
+                    </span>
                 </Link>
-            </div>
 
-            <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {children}
-            </div>
-        </div>
+                <div className="max-w-xl">
+                    <p className="text-xs uppercase tracking-[0.34em] text-[#d8bf8f]">Private editorial access</p>
+                    <h1 className="mt-6 font-serif text-6xl leading-none">Write from the cellar table.</h1>
+                    <p className="mt-6 max-w-md leading-8 text-[#eadfce]/80">
+                        A quiet publishing room for approved contributors, reviewers, and editors shaping the journal.
+                    </p>
+                </div>
+
+                <p className="text-xs uppercase tracking-[0.28em] text-[#d8bf8f]/80">Independent / Curated / Responsible</p>
+            </section>
+
+            <section className="flex min-h-screen flex-1 flex-col px-6 py-8 sm:px-10">
+                <div className="flex items-center justify-between lg:justify-end">
+                    <Link href="/" className="flex items-center gap-3 lg:hidden" aria-label="Cellar Circle Journal home">
+                        <ApplicationLogo className="h-14 w-14 rounded-full object-cover shadow-sm" />
+                        <span className="font-serif text-2xl">Cellar Circle</span>
+                    </Link>
+                    <Link href="/" className="text-sm text-[#682738] transition hover:text-[#201713]">
+                        Journal
+                    </Link>
+                </div>
+
+                <div className="flex flex-1 items-center justify-center py-12">
+                    <div className="w-full max-w-md rounded-lg border border-[#201713]/10 bg-white/70 p-6 shadow-[0_24px_80px_rgba(32,23,19,0.10)] backdrop-blur sm:p-8">
+                        {children}
+                    </div>
+                </div>
+            </section>
+        </main>
     );
 }

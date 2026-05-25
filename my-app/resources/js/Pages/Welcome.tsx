@@ -39,7 +39,30 @@ const features: Feature[] = [
     },
 ];
 
-const regions = ['Stellenbosch', 'Burgundy', 'Tuscany', 'Napa Valley', 'Douro', 'Marlborough'];
+const regions = [
+    'Stellenbosch',
+    'Franschhoek',
+    'Swartland',
+    'Constantia',
+    'Hemel-en-Aarde',
+    'Robertson',
+    'Paarl',
+    'Elgin',
+    'Tulbagh',
+    'Bot River',
+    'Durbanville',
+    'Walker Bay',
+    'Breedekloof',
+    'Wellington',
+    'Cederberg',
+    'Cape Agulhas',
+    'Darling',
+    'Olifants River',
+    'Klein Karoo',
+    'Plettenberg Bay',
+    'Worcester',
+    'Bottelary',
+];
 
 type PublicPost = {
     id: number;
@@ -226,9 +249,13 @@ export default function Welcome({ auth, posts = [] }: PageProps<{ posts: PublicP
                 </section>
 
                 <section id="regions" className="relative z-10 overflow-hidden border-y border-[#201713]/10 bg-[#eee5d7] py-10">
-                    <div className="marquee flex whitespace-nowrap text-[clamp(3rem,8vw,8rem)] font-serif tracking-[-0.06em] text-[#201713]/80">
-                        {[...regions, ...regions].map((region, index) => (
-                            <span className="mx-8" key={`${region}-${index}`}>{region}</span>
+                    <div className="marquee whitespace-nowrap font-serif text-[clamp(3rem,8vw,8rem)] text-[#201713]/80">
+                        {[0, 1, 2, 3].map((track) => (
+                            <div className="marquee-track" aria-hidden={track > 0} key={track}>
+                                {regions.map((region) => (
+                                    <span className="marquee-item" key={`${region}-${track}`}>{region}</span>
+                                ))}
+                            </div>
                         ))}
                     </div>
                 </section>

@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
+import BlogBodyEditor from '@/Components/BlogBodyEditor';
 import { PageProps } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEvent, ReactNode } from 'react';
@@ -34,11 +35,12 @@ export default function Create({ auth }: PageProps) {
                         <textarea className="min-h-24 w-full rounded-md border-gray-300" value={data.excerpt} onChange={(e) => setData('excerpt', e.target.value)} />
                     </Field>
                     <Field label="Hero image" error={errors.hero_image}>
-                        <input className="w-full rounded-md border border-gray-300 p-2" type="file" accept="image/*" onChange={(e) => setData('hero_image', e.target.files?.[0] ?? null)} />
+                        <HeroImageInput file={data.hero_image} onChange={(file) => setData('hero_image', file)} />
                     </Field>
-                    <Field label="Blog body" error={errors.body}>
-                        <textarea className="min-h-[420px] w-full rounded-md border-gray-300 font-mono text-sm leading-6" value={data.body} onChange={(e) => setData('body', e.target.value)} placeholder="Write the full story here. Use short paragraphs and clear section breaks." />
-                    </Field>
+                    <div>
+                        <span className="mb-2 block text-sm font-medium text-gray-700">Blog body</span>
+                        <BlogBodyEditor value={data.body} error={errors.body} onChange={(value) => setData('body', value)} />
+                    </div>
                     <Field label="Editorial notes for admin approval" error={errors.guideline_notes}>
                         <textarea className="min-h-28 w-full rounded-md border-gray-300" value={data.guideline_notes} onChange={(e) => setData('guideline_notes', e.target.value)} placeholder="Mention sources, image credit, tasting claims, audience notes, or anything the approver should check." />
                     </Field>
@@ -71,5 +73,19 @@ function Field({ label, error, children }: { label: string; error?: string; chil
             {children}
             <InputError message={error} className="mt-2" />
         </label>
+    );
+}
+
+function HeroImageInput({ file, onChange }: { file: File | null; onChange: (file: File | null) => void }) {
+    return (
+        <div className="rounded-lg border border-dashed border-[#682738]/30 bg-[#f8f4ec] p-5">
+            <label className="inline-flex cursor-pointer items-center rounded-md bg-[#682738] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#4f1d2b]">
+                Choose hero image
+                <input className="hidden" type="file" accept="image/*" onChange={(event) => onChange(event.target.files?.[0] ?? null)} />
+            </label>
+            <p className="mt-3 text-sm text-[#65584f]">
+                {file ? file.name : 'Add the main cover image for this blog.'}
+            </p>
+        </div>
     );
 }

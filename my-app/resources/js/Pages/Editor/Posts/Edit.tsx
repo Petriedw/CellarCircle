@@ -1,6 +1,7 @@
 import { PageProps } from '@/types';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
+import BlogBodyEditor from '@/Components/BlogBodyEditor';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEvent, ReactNode } from 'react';
 
@@ -39,8 +40,11 @@ export default function Edit({ auth, post: blog }: PageProps<{ post: Post }>) {
                     <Field label="Category" error={errors.category}><input className="w-full rounded-md border-gray-300" value={data.category} onChange={(e) => setData('category', e.target.value)} /></Field>
                     <Field label="Short excerpt" error={errors.excerpt}><textarea className="min-h-24 w-full rounded-md border-gray-300" value={data.excerpt} onChange={(e) => setData('excerpt', e.target.value)} /></Field>
                     {blog.hero_image_url && <img src={blog.hero_image_url} alt="" className="h-56 w-full rounded-lg object-cover" />}
-                    <Field label="Replace hero image" error={errors.hero_image}><input className="w-full rounded-md border border-gray-300 p-2" type="file" accept="image/*" onChange={(e) => setData('hero_image', e.target.files?.[0] ?? null)} /></Field>
-                    <Field label="Blog body" error={errors.body}><textarea className="min-h-[420px] w-full rounded-md border-gray-300 font-mono text-sm leading-6" value={data.body} onChange={(e) => setData('body', e.target.value)} /></Field>
+                    <Field label="Replace hero image" error={errors.hero_image}><HeroImageInput file={data.hero_image} onChange={(file) => setData('hero_image', file)} /></Field>
+                    <div>
+                        <span className="mb-2 block text-sm font-medium text-gray-700">Blog body</span>
+                        <BlogBodyEditor value={data.body} error={errors.body} onChange={(value) => setData('body', value)} />
+                    </div>
                     <Field label="Editorial notes" error={errors.guideline_notes}><textarea className="min-h-28 w-full rounded-md border-gray-300" value={data.guideline_notes} onChange={(e) => setData('guideline_notes', e.target.value)} /></Field>
                     <div className="flex items-center justify-between">
                         <Link href={route('editor.posts.index')} className="text-sm text-gray-600 hover:text-gray-900">Cancel</Link>
@@ -54,4 +58,18 @@ export default function Edit({ auth, post: blog }: PageProps<{ post: Post }>) {
 
 function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
     return <label className="block"><span className="mb-2 block text-sm font-medium text-gray-700">{label}</span>{children}<InputError message={error} className="mt-2" /></label>;
+}
+
+function HeroImageInput({ file, onChange }: { file: File | null; onChange: (file: File | null) => void }) {
+    return (
+        <div className="rounded-lg border border-dashed border-[#682738]/30 bg-[#f8f4ec] p-5">
+            <label className="inline-flex cursor-pointer items-center rounded-md bg-[#682738] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#4f1d2b]">
+                Choose hero image
+                <input className="hidden" type="file" accept="image/*" onChange={(event) => onChange(event.target.files?.[0] ?? null)} />
+            </label>
+            <p className="mt-3 text-sm text-[#65584f]">
+                {file ? file.name : 'Upload a replacement cover image.'}
+            </p>
+        </div>
+    );
 }

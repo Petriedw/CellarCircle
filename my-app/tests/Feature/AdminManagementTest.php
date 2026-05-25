@@ -5,7 +5,9 @@ namespace Tests\Feature;
 use App\Models\AccessRequest;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class AdminManagementTest extends TestCase
@@ -76,6 +78,22 @@ class AdminManagementTest extends TestCase
             'role' => 'editor',
         ]);
         $this->assertTrue(Hash::check('password123', User::where('email', 'new-editor@example.com')->value('password')));
+    }
+
+    public function test_editor_can_upload_inline_blog_image(): void
+    {
+        Storage::fake('public');
+        $editor = User::factory()->create(['role' => 'editor']);
+
+        $response = $this->actingAs($editor)->postJson(route('editor.posts.images.store'), [
+            'image' => UploadedFile::fake()->image('cellar.jpg'),
+        ]);
+
+        $response->assertOk()
+            ->assertJsonStructure(['url'])
+            ->assertJsonPath('url', fn (string $url) => str_starts_with($url, '/storage/posts/inline/'));
+
+        $this->assertCount(1, Storage::disk('public')->allFiles('posts/inline'));
     }
 
     public function test_admin_can_remove_editors_but_not_head_admins(): void
