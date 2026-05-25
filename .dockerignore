@@ -1,0 +1,14 @@
+.git
+.do
+my-app.zip
+my-app/.env
+my-app/.env.*
+!my-app/.env.example
+my-app/node_modules
+my-app/public/build
+my-app/public/hot
+my-app/public/storage
+my-app/storage/logs/*.log
+my-app/vendor
+my-app/.phpunit.result.cache
+my-app/.phpunit.cache
