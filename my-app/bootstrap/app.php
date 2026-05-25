@@ -43,6 +43,25 @@ $app->singleton(
 
 /*
 |--------------------------------------------------------------------------
+| Trust Proxies (fixes HTTPS asset URLs behind DigitalOcean load balancer)
+|--------------------------------------------------------------------------
+*/
+
+$app->bind(\Illuminate\Http\Request::class, function () {
+    $request = \Illuminate\Http\Request::capture();
+    $request->setTrustedProxies(
+        ['127.0.0.1', '10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'],
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_FOR |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_HOST |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_PORT |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_PROTO |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_AWS_ELB
+    );
+    return $request;
+});
+
+/*
+|--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------
 |
